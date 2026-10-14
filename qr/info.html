@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2C1810">
+<meta name="description" content="Shreeji Hotel & Banquet Karnal — WiFi, timings, nearby places & contact.">
+<title>Hotel Info — Shreeji Hotel & Banquet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="../shreejilogo.png">
+
+<style>
+  :root{
+    --brown-deep:#1A0E08;
+    --brown-dark:#2C1810;
+    --brown-mid:#4A2C1A;
+    --brown-light:#6B3F2A;
+    --gold:#C9A24B;
+    --gold-bright:#E5C76B;
+    --gold-soft:#9B7B3A;
+    --cream:#FDF8F0;
+    --text:#FDF8F0;
+    --text-dim:#A89680;
+    --green:#4ade80;
+    --red:#f87171;
+  }
+
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  html{
+    background:var(--brown-deep);
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+  }
+
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:radial-gradient(ellipse at top, #4A2C1A 0%, #2C1810 45%, #1A0E08 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.5;
+    padding-bottom:40px;
+    font-weight:400;
+    letter-spacing:0.1px;
+    font-feature-settings:"kern" 1, "liga" 1;
+  }
+
+  #bg3d{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.55;
+  }
+
+  .page-watermark{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:min(90vw, 700px);
+    height:auto;
+    opacity:0.05;
+    z-index:0;
+    pointer-events:none;
+    filter:blur(0.3px);
+    mix-blend-mode:screen;
+    animation:watermarkDrift 40s ease-in-out infinite;
+  }
+
+  @keyframes watermarkDrift{
+    0%,100%{ transform:translate(-50%,-50%) rotate(0deg) scale(1); }
+    50%{ transform:translate(-50%,-50%) rotate(3deg) scale(1.04); }
+  }
+
+  .topbar,
+  .hero,
+  .info-content,
+  .footer{
+    position:relative;
+    z-index:1;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(26,14,8,0.92);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(201,162,75,0.14);
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .topbar-logo{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:10px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .topbar-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    mix-blend-mode:screen;
+  }
+
+  .topbar-title{
+    flex:1;
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:1px;
+    line-height:1.1;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .topbar-title small{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:9px;
+    letter-spacing:2px;
+    color:var(--gold-soft);
+    font-weight:500;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+
+  .hero{
+    padding:36px 20px 22px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-40%;
+    left:50%;
+    transform:translateX(-50%);
+    width:420px;
+    height:420px;
+    background:radial-gradient(circle, rgba(201,162,75,0.12) 0%, transparent 65%);
+    pointer-events:none;
+    filter:blur(30px);
+    animation:heroGlow 7s ease-in-out infinite;
+  }
+
+  @keyframes heroGlow{
+    0%,100%{ opacity:.6; transform:translateX(-50%) scale(1); }
+    50%{ opacity:1; transform:translateX(-50%) scale(1.1); }
+  }
+
+  .hero-eyebrow{
+    position:relative;
+    font-size:10px;
+    letter-spacing:4px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:14px;
+    animation:fadeInDown .8s ease .1s both;
+  }
+
+  .hero-switcher{
+    display:flex;
+    background:rgba(201,162,75,0.08);
+    border:1px solid rgba(201,162,75,0.22);
+    border-radius:20px;
+    padding:4px;
+    margin:0 auto 22px;
+    width:fit-content;
+    animation:fadeInDown .8s ease .15s both;
+  }
+
+  .switch-btn{
+    padding:8px 14px;
+    border-radius:16px;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    transition:all .3s;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+
+  .switch-btn.active{
+    background:linear-gradient(180deg, rgba(201,162,75,0.28), rgba(201,162,75,0.12));
+    color:var(--gold-bright);
+    box-shadow:0 2px 8px rgba(201,162,75,0.15);
+  }
+
+  .switch-btn svg{ width:12px; height:12px; }
+
+  .hero-title{
+    position:relative;
+    font-family:'Cormorant Garamond',serif;
+    font-size:52px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:3px;
+    line-height:1;
+    margin-bottom:12px;
+    animation:fadeInDown .8s ease .2s both;
+  }
+
+  .hero-sub{
+    position:relative;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:16px;
+    color:var(--text-dim);
+    font-weight:400;
+    letter-spacing:0.3px;
+    animation:fadeInDown .8s ease .3s both;
+    max-width:340px;
+    margin:0 auto;
+    line-height:1.45;
+  }
+
+  .hero-sub::after{
+    content:'';
+    display:block;
+    width:50px;
+    height:1px;
+    margin:16px auto 0;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0.75;
+  }
+
+  .info-content{
+    max-width:680px;
+    margin:0 auto;
+    padding:20px 16px 0;
+  }
+
+  .info-section{
+    margin-bottom:26px;
+    animation:fadeInUp .6s ease backwards;
+  }
+
+  .info-section:nth-child(1){animation-delay:.15s}
+  .info-section:nth-child(2){animation-delay:.25s}
+  .info-section:nth-child(3){animation-delay:.35s}
+  .info-section:nth-child(4){animation-delay:.45s}
+  .info-section:nth-child(5){animation-delay:.55s}
+  .info-section:nth-child(6){animation-delay:.65s}
+
+  .section-label{
+    font-size:10px;
+    letter-spacing:2.6px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:12px;
+    padding-left:2px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .section-label::before{
+    content:'';
+    width:16px;
+    height:1px;
+    background:var(--gold-soft);
+  }
+
+  .info-card{
+    background:linear-gradient(155deg, rgba(201,162,75,0.06) 0%, rgba(201,162,75,0.015) 100%);
+    border:1px solid rgba(201,162,75,0.18);
+    border-radius:14px;
+    padding:18px 20px;
+    transition:border-color .3s;
+  }
+
+  .info-card:hover{ border-color:rgba(201,162,75,0.32); }
+
+  .wifi-list{ display:flex; flex-direction:column; gap:10px; }
+
+  .wifi-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    background:rgba(201,162,75,0.04);
+    border:1px solid rgba(201,162,75,0.14);
+    border-radius:12px;
+    transition:all .25s;
+  }
+
+  .wifi-item:active{
+    background:rgba(201,162,75,0.10);
+    transform:scale(0.995);
+  }
+
+  .wifi-icon{
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:rgba(201,162,75,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+  }
+
+  .wifi-icon svg{ width:19px; height:19px; stroke-width:1.7; }
+
+  .wifi-info{ flex:1; min-width:0; }
+
+  .wifi-name{
+    font-size:13px;
+    color:var(--text);
+    font-weight:500;
+    margin-bottom:3px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .wifi-pass{
+    font-family:'Courier New',monospace;
+    font-size:12px;
+    color:var(--gold-soft);
+    letter-spacing:0.5px;
+  }
+
+  .copy-btn{
+    flex-shrink:0;
+    background:rgba(201,162,75,0.12);
+    border:1px solid rgba(201,162,75,0.28);
+    color:var(--gold-bright);
+    font-family:inherit;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:8px 14px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:all .2s;
+    white-space:nowrap;
+  }
+
+  .copy-btn:active{
+    transform:scale(0.94);
+    background:rgba(201,162,75,0.24);
+  }
+
+  .copy-btn.copied{
+    background:var(--gold-bright);
+    color:var(--brown-deep);
+    border-color:var(--gold-bright);
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .contact-btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 18px;
+    background:linear-gradient(155deg, rgba(201,162,75,0.06) 0%, rgba(201,162,75,0.015) 100%);
+    border:1px solid rgba(201,162,75,0.18);
+    border-radius:12px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all .25s;
+  }
+
+  .contact-btn:active{
+    transform:scale(0.98);
+    border-color:var(--gold);
+  }
+
+  .contact-icon{
+    flex-shrink:0;
+    width:42px;
+    height:42px;
+    border-radius:11px;
+    background:rgba(201,162,75,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-bright);
+  }
+
+  .contact-icon svg{ width:20px; height:20px; stroke-width:1.7; }
+
+  .contact-text{ flex:1; }
+
+  .contact-label{
+    font-size:10px;
+    letter-spacing:1.8px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+
+  .contact-value{
+    font-size:14px;
+    color:var(--gold-bright);
+    font-weight:500;
+    letter-spacing:0.3px;
+  }
+
+  .contact-arrow{
+    flex-shrink:0;
+    color:var(--gold-soft);
+    font-size:18px;
+    opacity:.55;
+    transition:all .25s;
+  }
+
+  .contact-btn:active .contact-arrow{
+    opacity:1;
+    transform:translateX(3px);
+  }
+
+  .review-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:22px;
+    background:linear-gradient(135deg, rgba(201,162,75,0.16) 0%, rgba(201,162,75,0.04) 100%);
+    border:1px solid rgba(201,162,75,0.35);
+    border-radius:14px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all .25s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .review-card:active{
+    transform:scale(0.98);
+    border-color:var(--gold-bright);
+  }
+
+  .review-stars{
+    display:flex;
+    gap:3px;
+    margin-top:5px;
+  }
+
+  .review-stars svg{
+    width:13px;
+    height:13px;
+    fill:var(--gold-bright);
+  }
+
+  .time-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+  }
+
+  .time-row + .time-row{
+    border-top:1px solid rgba(201,162,75,0.1);
+  }
+
+  .time-label{
+    font-size:13px;
+    color:var(--text-dim);
+    font-weight:400;
+  }
+
+  .time-value{
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.5px;
+    text-decoration:none;
+  }
+
+  a.time-value:active{ color:var(--gold); }
+
+  .nearby-list{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .nearby-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:13px 4px;
+    border-bottom:1px solid rgba(201,162,75,0.08);
+  }
+
+  .nearby-item:last-child{ border-bottom:none; }
+
+  .nearby-name{
+    font-size:13.5px;
+    color:var(--text);
+    font-weight:400;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .nearby-name::before{
+    content:'';
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--gold-soft);
+    flex-shrink:0;
+  }
+
+  .nearby-dist{
+    font-family:'Cormorant Garamond',serif;
+    font-size:17px;
+    font-weight:600;
+    color:var(--gold-bright);
+    letter-spacing:0.5px;
+  }
+
+  .footer{
+    text-align:center;
+    padding:34px 20px 24px;
+    margin-top:36px;
+    border-top:1px solid rgba(201,162,75,0.10);
+    animation:fadeIn 1s ease .9s both;
+  }
+
+  .footer-location{
+    font-size:10px;
+    letter-spacing:3px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin-bottom:5px;
+    font-weight:600;
+  }
+
+  .footer-address{
+    font-size:10px;
+    color:var(--text-dim);
+    opacity:.6;
+    line-height:1.7;
+    letter-spacing:0.3px;
+  }
+
+  .footer-vaan{
+    display:inline-block;
+    margin-top:20px;
+    font-size:9px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    opacity:0.5;
+    transition:opacity .3s ease;
+    font-weight:500;
+  }
+
+  .footer-vaan span{
+    font-family:'Cormorant Garamond',serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:var(--gold-bright);
+    font-style:italic;
+  }
+
+  .footer-vaan:active,
+  .footer-vaan:hover{ opacity:1; }
+
+  .toast{
+    position:fixed;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:var(--gold-bright);
+    color:var(--brown-deep);
+    padding:12px 22px;
+    border-radius:24px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.8px;
+    z-index:999;
+    transition:transform .4s cubic-bezier(.2,.8,.3,1);
+    box-shadow:0 12px 32px rgba(0,0,0,0.5);
+    pointer-events:none;
+    max-width:88%;
+    text-align:center;
+  }
+
+  .toast.show{ transform:translateX(-50%) translateY(0); }
+
+  @keyframes fadeInUp{
+    from{ opacity:0; transform:translateY(16px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes fadeInDown{
+    from{ opacity:0; transform:translateY(-16px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes fadeIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+
+  @media(max-width:380px){
+    .hero-title{ font-size:42px; }
+    .topbar-title{ font-size:15px; }
+    .topbar-logo{ width:36px; height:36px; }
+    .time-value{ font-size:18px; }
+    .switch-btn{ padding:6px 10px; font-size:9px; }
+    .hero-sub{ font-size:14px; }
+  }
+
+  @media(min-width:640px){
+    .hero-title{ font-size:64px; }
+    .info-content{ max-width:720px; }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+    #bg3d, .page-watermark{ display:none; }
+  }
+</style>
+</head><body>
+
+  <canvas id="bg3d" aria-hidden="true"></canvas>
+  <img src="../shreejilogo.png" alt="" class="page-watermark" aria-hidden="true">
+
+  <div class="topbar">
+    <div class="topbar-logo">
+      <img src="../shreejilogo.png" alt="Shreeji Hotel & Banquet">
+    </div>
+    <div class="topbar-title">
+      Shreeji Hotel &amp; Banquet
+      <small>A Complete Hospitality Services</small>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-eyebrow">For Our Guests</div>
+
+    <div class="hero-switcher">
+      <a href="menu.html" class="switch-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 3v7a4 4 0 0 0 4 4v7"/>
+          <path d="M8 3v11"/>
+          <path d="M12 3v18"/>
+          <path d="M18 3c-1.5 0-3 2-3 4.5S16.5 12 18 12v9"/>
+        </svg>
+        Menu
+      </a>
+      <a href="info.html" class="switch-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18"/>
+          <path d="M5 21V7l8-4v18"/>
+          <path d="M19 21V11l-6-4"/>
+          <path d="M9 9v.01"/>
+          <path d="M9 12v.01"/>
+          <path d="M9 15v.01"/>
+          <path d="M9 18v.01"/>
+        </svg>
+        Info
+      </a>
+    </div>
+
+    <h1 class="hero-title">Hotel Info</h1>
+    <div class="hero-sub">Everything you need during your stay</div>
+  </section>
+
+  <main class="info-content">
+
+    <!-- 1. WIFI -->
+    <section class="info-section">
+      <div class="section-label">WiFi Networks</div>
+      <div class="wifi-list">
+
+        <div class="wifi-item">
+          <div class="wifi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+          <div class="wifi-info"><div class="wifi-name">Sitiwifi 5G</div><div class="wifi-pass">shreeji2024</div></div>
+          <button class="copy-btn" data-copy="shreeji2024" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+          <div class="wifi-info"><div class="wifi-name">Sitiwifi 804</div><div class="wifi-pass">shreeji2024</div></div>
+          <button class="copy-btn" data-copy="shreeji2024" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+          <div class="wifi-info"><div class="wifi-name">Tenda 84 · Restaurant</div><div class="wifi-pass">shreeji@rcs</div></div>
+          <button class="copy-btn" data-copy="shreeji@rcs" type="button">Copy</button>
+        </div>
+
+        <div class="wifi-item">
+          <div class="wifi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+          <div class="wifi-info"><div class="wifi-name">Tenda 85 · Rooms</div><div class="wifi-pass">shreeji@room</div></div>
+          <button class="copy-btn" data-copy="shreeji@room" type="button">Copy</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. GET IN TOUCH -->
+    <section class="info-section">
+      <div class="section-label">Get in Touch</div>
+      <div class="contact-grid">
+
+        <a href="tel:+919653566500" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="contact-text"><div class="contact-label">Call Restaurant</div><div class="contact-value">96 53 566 500</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://wa.me/919653566500" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <div class="contact-text"><div class="contact-label">WhatsApp</div><div class="contact-value">Chat with us</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://instagram.com/shreejikarnal" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div class="contact-text"><div class="contact-label">Instagram</div><div class="contact-value">@shreejikarnal</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://www.facebook.com/share/1K7UhZAFdc/" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          <div class="contact-text"><div class="contact-label">Facebook</div><div class="contact-value">Shreeji Karnal</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="http://www.shreejihotelskarnal.com" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="contact-text"><div class="contact-label">Website</div><div class="contact-value">shreejihotelskarnal.com</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+        <a href="https://maps.app.goo.gl/MsskTNzz9wc3pxwg7" target="_blank" rel="noopener" class="contact-btn">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="contact-text"><div class="contact-label">Get Directions</div><div class="contact-value">Open in Google Maps</div></div>
+          <div class="contact-arrow">→</div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 3. GOOGLE FEEDBACK -->
+    <section class="info-section">
+      <div class="section-label">Your Feedback Matters</div>
+      <a href="https://maps.app.goo.gl/MsskTNzz9wc3pxwg7" target="_blank" rel="noopener" class="review-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="contact-text">
+          <div class="contact-label">Google Review</div>
+          <div class="contact-value">Rate your stay with us</div>
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <div class="contact-arrow">→</div>
+      </a>
+    </section>
+
+    <!-- 4. TIMINGS -->
+    <section class="info-section">
+      <div class="section-label">Stay Timings</div>
+      <div class="info-card">
+        <div class="time-row"><div class="time-label">Check-in</div><div class="time-value">12:00 Noon</div></div>
+        <div class="time-row"><div class="time-label">Check-out</div><div class="time-value">11:00 AM</div></div>
+      </div>
+    </section>
+
+    <!-- 5. NEARBY PLACES -->
+    <section class="info-section">
+      <div class="section-label">Nearby Places</div>
+      <div class="info-card">
+        <div class="nearby-list">
+          <div class="nearby-item"><div class="nearby-name">Kalpana Chawla Dwar</div><div class="nearby-dist">Adjacent</div></div>
+          <div class="nearby-item"><div class="nearby-name">Karnal Railway Station</div><div class="nearby-dist">6 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Karnal Bus Stand</div><div class="nearby-dist">6.5 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Kalpana Chawla Hospital</div><div class="nearby-dist">5 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Sector 12 Market</div><div class="nearby-dist">4 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Super Mall</div><div class="nearby-dist">5 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Kalander Shah Tomb</div><div class="nearby-dist">6 km</div></div>
+          <div class="nearby-item"><div class="nearby-name">Karna Lake</div><div class="nearby-dist">12 km</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. OWNER -->
+    <section class="info-section">
+      <div class="section-label">Direct to Owner</div>
+      <div class="info-card">
+        <div class="time-row"><div class="time-label">Feedback &amp; Complaints</div><a href="tel:+918950111500" class="time-value">89 50 111 500</a></div>
+        <div style="font-size:11.5px; color:var(--text-dim); font-style:italic; line-height:1.6; padding-top:10px;">For any feedback or concern during your stay, please reach out to us directly.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-location">Shreeji Hotel &amp; Banquet · Karnal</div>
+    <div class="footer-address">
+      Adjoin of Kalpana Chawla Dwar, Munak Road,<br>
+      Karnal-132001
+    </div>
+    <a href="https://vaan-consultancy.pages.dev" target="_blank" rel="noopener" class="footer-vaan">
+      Powered by <span>VAAN</span>
+    </a>
+  </footer>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer = null;
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    document.querySelectorAll('.copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const text = btn.getAttribute('data-copy');
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){ showCopied(btn); }).catch(function(){ fallbackCopy(text, btn); });
+        } else { fallbackCopy(text, btn); }
+      });
+    });
+
+    function fallbackCopy(text, btn){
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); showCopied(btn); } catch(err){ showToast('Copy failed — please note manually'); }
+      document.body.removeChild(ta);
+    }
+
+    function showCopied(btn){
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      showToast('Password copied!');
+      setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+    }
+
+    (function init3D(){
+      const canvas = document.getElementById('bg3d');
+      if (!canvas || typeof THREE === 'undefined') return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 26;
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: window.devicePixelRatio < 2 });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const goldColor = 0xC9A24B;
+      const goldBright = 0xE5C76B;
+
+      const particleCount = window.innerWidth < 640 ? 50 : 100;
+      const positions = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount; i++){
+        positions[i * 3] = (Math.random() - 0.5) * 90;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 90;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+      }
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particleMat = new THREE.PointsMaterial({ color: goldBright, size: 0.4, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      const ico = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(8, 1),
+        new THREE.MeshBasicMaterial({ color: goldColor, wireframe: true, transparent: true, opacity: 0.07 })
+      );
+      ico.position.set(0, 0, -12);
+      scene.add(ico);
+
+      const torus1 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2.6, 0.06, 100, 12),
+        new THREE.MeshBasicMaterial({ color: goldBright, wireframe: true, transparent: true, opacity: 0.11 })
+      );
+      torus1.position.set(-13, 8, -8);
+      scene.add(torus1);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2, 0.05, 80, 10),
+        new THREE.MeshBasicMaterial({ color: goldColor, wireframe: true, transparent: true, opacity: 0.10 })
+      );
+      torus2.position.set(14, -10, -12);
+      scene.add(torus2);
+
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(18, 18.3, 80),
+        new THREE.MeshBasicMaterial({ color: goldColor, transparent: true, opacity: 0.05, side: THREE.DoubleSide })
+      );
+      ring.position.set(0, 0, -18);
+      scene.add(ring);
+
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      const clock = new THREE.Clock();
+      let animationId = null;
+
+      function animate(){
+        const t = clock.getElapsedTime();
+        particles.rotation.y = t * 0.02;
+        particles.rotation.x = t * 0.01;
+        particles.position.y = Math.sin(t * 0.4) * 0.8;
+        ico.rotation.x = t * 0.06;
+        ico.rotation.y = t * 0.10;
+        torus1.rotation.x = t * 0.12;
+        torus1.rotation.y = t * 0.09;
+        torus2.rotation.x = -t * 0.10;
+        torus2.rotation.y = t * 0.12;
+        camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 1.2 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+        animationId = requestAnimationFrame(animate);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden){
+          if (animationId) cancelAnimationFrame(animationId);
+          animationId = null;
+        } else if (!animationId){ animate(); }
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }, 200);
+      });
+
+      animate();
+    })();
+  </script>
+
+</body>
+</html>
