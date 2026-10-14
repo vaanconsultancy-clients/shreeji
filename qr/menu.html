@@ -40,6 +40,7 @@
     background:var(--brown-deep);
     scroll-behavior:smooth;
     -webkit-text-size-adjust:100%;
+    overflow-x:hidden;
   }
 
   body{
@@ -48,6 +49,7 @@
     background-attachment:fixed;
     color:var(--text);
     min-height:100vh;
+    min-height:100svh;
     overflow-x:hidden;
     line-height:1.5;
     padding-bottom:120px;
@@ -497,25 +499,6 @@
     100%{ background-position:-200% center; }
   }
 
-  .subcategory-label{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 4px 10px;
-    margin-top:14px;
-    margin-bottom:6px;
-    font-family:'Cormorant Garamond',serif;
-    font-size:14px;
-    font-weight:600;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:var(--gold-soft);
-    border-bottom:1px solid rgba(201,162,75,0.12);
-  }
-
-  .subcategory-label:first-of-type{ margin-top:0; }
-  .subcategory-label .veg-mark{ width:13px; height:13px; }
-
   /* ============ DISH CARD ============ */
   .dish{
     display:flex;
@@ -608,29 +591,6 @@
 
   .veg-mark.nonveg::before{ background:var(--red); }
 
-  .veg-mark.both{
-    border:1.5px solid var(--green);
-    background:rgba(74,222,128,0.05);
-  }
-
-  .veg-mark.both::before{
-    width:6px;
-    height:6px;
-    background:var(--green);
-  }
-
-  .veg-mark.both::after{
-    content:'';
-    position:absolute;
-    top:-1.5px;
-    right:-1.5px;
-    width:7px;
-    height:7px;
-    border:1.5px solid var(--red);
-    border-radius:2px;
-    background:var(--brown-deep);
-  }
-
   .dish-info{
     flex:1;
     min-width:0;
@@ -677,42 +637,6 @@
     white-space:nowrap;
     font-variant-numeric:tabular-nums lining-nums;
     font-feature-settings:"tnum" 1, "lnum" 1, "kern" 1;
-  }
-
-  .dual-price-wrap{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-    align-items:flex-end;
-  }
-
-  .dual-price-row{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    justify-content:flex-end;
-  }
-
-  .dual-dot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    flex-shrink:0;
-  }
-
-  .dual-dot.veg{ background:var(--green); }
-  .dual-dot.nonveg{ background:var(--red); }
-
-  .dual-price-value{
-    font-family:'Cormorant Garamond',serif;
-    font-size:17px;
-    font-weight:700;
-    color:var(--gold-bright);
-    letter-spacing:0.2px;
-    line-height:1;
-    font-variant-numeric:tabular-nums lining-nums;
-    min-width:52px;
-    text-align:right;
   }
 
   .half-full-wrap{
@@ -1022,28 +946,6 @@
     box-shadow:inset 0 0 0 3px var(--brown-dark);
   }
 
-  .portion-dot.veg{
-    border-color:var(--green);
-    background:rgba(74,222,128,0.15);
-  }
-
-  .portion-btn.selected .portion-dot.veg{
-    background:var(--green);
-    border-color:var(--green);
-    box-shadow:inset 0 0 0 3px var(--brown-dark);
-  }
-
-  .portion-dot.nonveg{
-    border-color:var(--red);
-    background:rgba(248,113,113,0.15);
-  }
-
-  .portion-btn.selected .portion-dot.nonveg{
-    background:var(--red);
-    border-color:var(--red);
-    box-shadow:inset 0 0 0 3px var(--brown-dark);
-  }
-
   .portion-btn-text{
     display:flex;
     flex-direction:column;
@@ -1069,12 +971,6 @@
     color:var(--gold-bright);
     line-height:1;
     font-variant-numeric:tabular-nums;
-  }
-
-  .portion-btn.locked{
-    opacity:0.35;
-    cursor:not-allowed;
-    pointer-events:none;
   }
 
   .modal-actions{
@@ -1411,7 +1307,6 @@
     .category-title{ font-size:20px; }
     .dish-name{ font-size:16px; }
     .dish-price{ font-size:19px; }
-    .dual-price-value{ font-size:15px; min-width:46px; }
     .hf-value{ font-size:14px; min-width:46px; }
     .topbar-title{ font-size:15px; }
     .switch-btn{ padding:6px 9px; font-size:9px; }
@@ -1973,18 +1868,29 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
-    const HOTEL_WHATSAPP = '919653566500';
+    /* ============================================================
+       CONFIG
+       ============================================================ */
+    const HOTEL_WHATSAPP = '919653566500';   // Restaurant WhatsApp
     const HOTEL_NAME = 'Shreeji Hotel & Banquet';
+    const CART_KEY = 'shreeji_cart_v1';
 
+    /* ============================================================
+       CART STATE
+       ============================================================ */
     let cart = [];
     try {
-      const saved = localStorage.getItem('shreeji_cart_v1');
+      const saved = localStorage.getItem(CART_KEY);
       if (saved) cart = JSON.parse(saved);
+      if (!Array.isArray(cart)) cart = [];
     } catch(e){ cart = []; }
 
     let currentQty = 1;
     let selectedPortion = null;
 
+    /* ============================================================
+       DOM REFS
+       ============================================================ */
     const cartCountEl = document.getElementById('cartCount');
     const cartBtn = document.getElementById('cartBtn');
     const viewCartBtn = document.getElementById('viewCartBtn');
@@ -2015,6 +1921,9 @@
     const filterBar = document.getElementById('filterBar');
     const bottombar = document.getElementById('bottombar');
 
+    /* ============================================================
+       HELPERS
+       ============================================================ */
     let toastTimer = null;
     function showToast(msg){
       toast.textContent = msg;
@@ -2024,20 +1933,31 @@
     }
 
     function saveCart(){
-      try { localStorage.setItem('shreeji_cart_v1', JSON.stringify(cart)); } catch(e){}
+      try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){}
     }
 
     function lineKey(name, variant){
       return name + '::' + (variant || '');
     }
 
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function escapeAttr(s){ return escapeHtml(s); }
+
+    /* ============================================================
+       CART OPERATIONS
+       ============================================================ */
     function addToCart(name, price, qty, variant){
       qty = qty || 1;
       variant = variant || '';
       const key = lineKey(name, variant);
       const existing = cart.find(item => lineKey(item.name, item.variant) === key);
-      if (existing){ existing.qty += qty; }
-      else { cart.push({ name: name, price: price, qty: qty, variant: variant }); }
+      if (existing){
+        existing.qty += qty;
+      } else {
+        cart.push({ name: name, price: price, qty: qty, variant: variant });
+      }
       saveCart();
       updateCartUI();
       bounceCart();
@@ -2059,8 +1979,12 @@
       else { saveCart(); updateCartUI(); }
     }
 
-    function cartTotal(){ return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
-    function cartCount(){ return cart.reduce((sum, item) => sum + item.qty, 0); }
+    function cartTotal(){
+      return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    }
+    function cartCount(){
+      return cart.reduce((sum, item) => sum + item.qty, 0);
+    }
 
     function bounceCart(){
       cartCountEl.classList.remove('bounce');
@@ -2068,16 +1992,19 @@
       cartCountEl.classList.add('bounce');
     }
 
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-    function escapeAttr(s){ return escapeHtml(s); }
-
+    /* ============================================================
+       CART UI
+       ============================================================ */
     function updateCartUI(){
       const count = cartCount();
-      if (count === 0){ cartCountEl.classList.add('hidden'); }
-      else { cartCountEl.classList.remove('hidden'); cartCountEl.textContent = count; }
+      if (count === 0){
+        cartCountEl.classList.add('hidden');
+      } else {
+        cartCountEl.classList.remove('hidden');
+        cartCountEl.textContent = count;
+      }
 
+      // Remove existing cart item rows
       cartItemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
 
       if (cart.length === 0){
@@ -2090,7 +2017,9 @@
         cart.forEach(item => {
           const row = document.createElement('div');
           row.className = 'cart-item';
-          const variantHtml = item.variant ? `<div class="cart-item-variant">${escapeHtml(item.variant)}</div>` : '';
+          const variantHtml = item.variant
+            ? `<div class="cart-item-variant">${escapeHtml(item.variant)}</div>`
+            : '';
           row.innerHTML = `
             <div class="cart-item-info">
               <div class="cart-item-name">${escapeHtml(item.name)}</div>
@@ -2109,10 +2038,16 @@
         cartTotalEl.textContent = '₹' + cartTotal();
       }
 
-      if (cartCount() > 0){ cartBtn.classList.add('has-items'); }
-      else { cartBtn.classList.remove('has-items'); }
+      if (cartCount() > 0){
+        cartBtn.classList.add('has-items');
+      } else {
+        cartBtn.classList.remove('has-items');
+      }
     }
 
+    /* ============================================================
+       DISH CLICK → MODAL
+       ============================================================ */
     document.querySelectorAll('.dish').forEach(dish => {
       dish.addEventListener('click', () => {
         const name = dish.getAttribute('data-name');
@@ -2137,39 +2072,13 @@
       modalEyebrow.textContent = isVeg ? 'Vegetarian' : 'Non-Vegetarian';
       modalEyebrow.style.color = isVeg ? 'var(--green)' : 'var(--red)';
 
-      const isDual = dishEl.classList.contains('dual-price');
       const isHalfFull = dishEl.classList.contains('half-full');
       const singlePrice = parseInt(dishEl.getAttribute('data-price')) || 0;
 
       portionOptions.innerHTML = '';
       selectedPortion = null;
 
-      if (isDual){
-        portionSection.style.display = 'block';
-        portionLabel.textContent = 'Choose your type';
-
-        const vegPrice = parseInt(dishEl.getAttribute('data-veg-price')) || 0;
-        const nonvegPrice = parseInt(dishEl.getAttribute('data-nonveg-price')) || 0;
-        const hasNonveg = dishEl.getAttribute('data-has-nonveg') === 'true';
-
-        portionOptions.appendChild(buildPortionBtn('veg','Veg',vegPrice,false,() => {
-          selectedPortion = { label: 'Veg', price: vegPrice };
-          addToCartBtn.disabled = false;
-          addToCartBtn.textContent = `Add ₹${vegPrice * currentQty}`;
-        }));
-
-        if (hasNonveg){
-          portionOptions.appendChild(buildPortionBtn('nonveg','Chicken',nonvegPrice,false,() => {
-            selectedPortion = { label: 'Chicken', price: nonvegPrice };
-            addToCartBtn.disabled = false;
-            addToCartBtn.textContent = `Add ₹${nonvegPrice * currentQty}`;
-          }));
-        }
-
-        addToCartBtn.disabled = true;
-        addToCartBtn.textContent = 'Select portion';
-
-      } else if (isHalfFull){
+      if (isHalfFull){
         portionSection.style.display = 'block';
         portionLabel.textContent = 'Choose your portion';
 
@@ -2179,7 +2088,7 @@
         const hasFull = dishEl.getAttribute('data-has-full') === 'true';
 
         if (hasHalf){
-          portionOptions.appendChild(buildPortionBtn('half','Half',halfPrice,false,() => {
+          portionOptions.appendChild(buildPortionBtn('Half', halfPrice, false, () => {
             selectedPortion = { label: 'Half', price: halfPrice };
             addToCartBtn.disabled = false;
             addToCartBtn.textContent = `Add ₹${halfPrice * currentQty}`;
@@ -2187,16 +2096,19 @@
         }
 
         if (hasFull){
-          portionOptions.appendChild(buildPortionBtn('full','Full',fullPrice,false,() => {
+          portionOptions.appendChild(buildPortionBtn('Full', fullPrice, false, () => {
             selectedPortion = { label: 'Full', price: fullPrice };
             addToCartBtn.disabled = false;
             addToCartBtn.textContent = `Add ₹${fullPrice * currentQty}`;
           }));
         }
 
-        if (portionOptions.children.length === 1){ portionOptions.firstChild.click(); }
-        else { addToCartBtn.disabled = true; addToCartBtn.textContent = 'Select portion'; }
-
+        if (portionOptions.children.length === 1){
+          portionOptions.firstChild.click();
+        } else {
+          addToCartBtn.disabled = true;
+          addToCartBtn.textContent = 'Select portion';
+        }
       } else {
         portionSection.style.display = 'none';
         if (singlePrice > 0){
@@ -2215,12 +2127,12 @@
       document.body.classList.add('no-scroll');
     }
 
-    function buildPortionBtn(type, label, price, locked, onClick){
+    function buildPortionBtn(label, price, locked, onClick){
       const btn = document.createElement('button');
       btn.className = 'portion-btn' + (locked ? ' locked' : '');
       btn.type = 'button';
       btn.innerHTML = `
-        <span class="portion-dot ${type}"></span>
+        <span class="portion-dot"></span>
         <span class="portion-btn-text">
           <span class="portion-btn-label">${label}</span>
           <span class="portion-btn-price">₹${price}</span>
@@ -2282,6 +2194,9 @@
       closeDishModal();
     });
 
+    /* ============================================================
+       CART DRAWER
+       ============================================================ */
     function openCart(){
       cartDrawer.classList.add('show');
       modalBackdrop.classList.add('show');
@@ -2311,17 +2226,31 @@
       else if (action === 'minus') changeQty(name, variant, -1);
     });
 
+    /* ============================================================
+       CHECKOUT → WHATSAPP WITH FULL CART
+       ============================================================ */
     checkoutBtn.addEventListener('click', () => {
       if (cart.length === 0) return;
-      let msg = 'Hi, I would like to place an order from ' + HOTEL_NAME + ':%0A%0A';
+
+      // Build multiline message — one line per cart item
+      let msg = 'Hi, I would like to place an order from ' + HOTEL_NAME + ':\n\n';
+
       cart.forEach((item, i) => {
         const variantLabel = item.variant ? ' (' + item.variant + ')' : '';
-        msg += (i + 1) + '. ' + item.name + variantLabel + ' × ' + item.qty + ' — ₹' + (item.price * item.qty) + '%0A';
+        const lineTotal = item.price * item.qty;
+        msg += (i + 1) + '. ' + item.name + variantLabel + ' × ' + item.qty + ' — ₹' + lineTotal + '\n';
       });
-      msg += '%0A*Total: ₹' + cartTotal() + '*%0A%0AThanks!';
-      window.open('https://wa.me/' + HOTEL_WHATSAPP + '?text=' + msg, '_blank');
+
+      msg += '\nTotal: ₹' + cartTotal() + '\n\nThank you!';
+
+      // Encode & open WhatsApp
+      const url = 'https://wa.me/' + HOTEL_WHATSAPP + '?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
     });
 
+    /* ============================================================
+       CATEGORY FILTER
+       ============================================================ */
     filterBar.addEventListener('click', (e) => {
       const chip = e.target.closest('.filter-chip');
       if (!chip) return;
@@ -2348,6 +2277,9 @@
       }
     });
 
+    /* ============================================================
+       REVEAL ON SCROLL
+       ============================================================ */
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting){
@@ -2363,6 +2295,9 @@
       document.querySelectorAll('.dish:not(.revealed)').forEach(d => d.classList.add('revealed'));
     }, 5000);
 
+    /* ============================================================
+       BOTTOM BAR HIDE ON SCROLL
+       ============================================================ */
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
@@ -2371,6 +2306,9 @@
       lastScroll = y;
     }, { passive: true });
 
+    /* ============================================================
+       INIT
+       ============================================================ */
     updateCartUI();
     toast.classList.remove('show');
 
@@ -2380,6 +2318,9 @@
       }
     }, { passive: false });
 
+    /* ============================================================
+       3D BACKGROUND
+       ============================================================ */
     (function init3D(){
       const canvas = document.getElementById('bg3d');
       if (!canvas || typeof THREE === 'undefined') return;
@@ -2412,50 +2353,33 @@
       const particles = new THREE.Points(particleGeo, particleMat);
       scene.add(particles);
 
-      function makeTextSprite(text, fontsize){
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 512;
-        canvas.height = 128;
-        ctx.font = `600 ${fontsize}px 'Cormorant Garamond', serif`;
-        ctx.fillStyle = 'rgba(229,199,107,0.55)';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(text, 256, 64);
-        const texture = new THREE.CanvasTexture(canvas);
-        const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, opacity: 0.6 });
-        const sprite = new THREE.Sprite(material);
-        sprite.scale.set(14, 3.5, 1);
-        return sprite;
-      }
+      const ico = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(8, 1),
+        new THREE.MeshBasicMaterial({ color: goldColor, wireframe: true, transparent: true, opacity: 0.07 })
+      );
+      ico.position.set(0, 0, -12);
+      scene.add(ico);
 
-      const servicesOuter = ['Burgers','Soups','Beverages','Sandwich','Snacks','Veg Main','Raita','Dessert','Breads','Rice','Bar-B-Que','Pizza','Pasta','Non-Veg','Tandoori','Chinese','Egg','Fish'];
-      const ringRadius = 24;
-      const outerGroup = new THREE.Group();
-      servicesOuter.forEach((label, i) => {
-        const angle = (i / servicesOuter.length) * Math.PI * 2;
-        const sprite = makeTextSprite(label, 42);
-        sprite.position.set(Math.cos(angle) * ringRadius, Math.sin(angle) * ringRadius * 0.55, -8);
-        outerGroup.add(sprite);
-      });
-      scene.add(outerGroup);
+      const torus1 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2.6, 0.06, 100, 12),
+        new THREE.MeshBasicMaterial({ color: goldBright, wireframe: true, transparent: true, opacity: 0.11 })
+      );
+      torus1.position.set(-13, 8, -8);
+      scene.add(torus1);
 
-      const iconShapes = [];
-      for (let i = 0; i < 6; i++){
-        const geo = (i % 3 === 0)
-          ? new THREE.TorusGeometry(0.7, 0.2, 8, 20)
-          : (i % 3 === 1)
-            ? new THREE.OctahedronGeometry(0.9, 0)
-            : new THREE.IcosahedronGeometry(0.8, 0);
-        const mat = new THREE.MeshBasicMaterial({ color: goldColor, wireframe: true, transparent: true, opacity: 0.14 });
-        const mesh = new THREE.Mesh(geo, mat);
-        const angle = (i / 6) * Math.PI * 2;
-        mesh.position.set(Math.cos(angle) * 20, Math.sin(angle) * 12, -14 + Math.random() * 4);
-        mesh.userData.angle = angle;
-        mesh.userData.speed = 0.15 + Math.random() * 0.2;
-        scene.add(mesh);
-        iconShapes.push(mesh);
-      }
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(2, 0.05, 80, 10),
+        new THREE.MeshBasicMaterial({ color: goldColor, wireframe: true, transparent: true, opacity: 0.10 })
+      );
+      torus2.position.set(14, -10, -12);
+      scene.add(torus2);
+
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(18, 18.3, 80),
+        new THREE.MeshBasicMaterial({ color: goldColor, transparent: true, opacity: 0.05, side: THREE.DoubleSide })
+      );
+      ring.position.set(0, 0, -18);
+      scene.add(ring);
 
       let mouseX = 0, mouseY = 0;
       window.addEventListener('mousemove', (e) => {
@@ -2468,25 +2392,18 @@
 
       function animate(){
         const t = clock.getElapsedTime();
-
         particles.rotation.y = t * 0.02;
         particles.rotation.x = t * 0.01;
         particles.position.y = Math.sin(t * 0.4) * 0.8;
-
-        outerGroup.rotation.z = t * 0.04;
-
-        iconShapes.forEach((mesh, i) => {
-          const a = mesh.userData.angle + t * mesh.userData.speed;
-          mesh.position.x = Math.cos(a) * 20;
-          mesh.position.y = Math.sin(a) * 12 + Math.sin(t * 0.6 + i) * 0.6;
-          mesh.rotation.x = t * 0.3 + i;
-          mesh.rotation.y = t * 0.4 + i;
-        });
-
-        camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
-        camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.03;
+        ico.rotation.x = t * 0.06;
+        ico.rotation.y = t * 0.10;
+        torus1.rotation.x = t * 0.12;
+        torus1.rotation.y = t * 0.09;
+        torus2.rotation.x = -t * 0.10;
+        torus2.rotation.y = t * 0.12;
+        camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 1.2 - camera.position.y) * 0.03;
         camera.lookAt(scene.position);
-
         renderer.render(scene, camera);
         animationId = requestAnimationFrame(animate);
       }
